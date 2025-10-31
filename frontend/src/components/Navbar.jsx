@@ -50,18 +50,18 @@ const Navbar = () => {
 
           {/* Right Side Actions */}
           <div className="hidden lg:flex items-center space-x-4">
-            <Button variant="ghost" size="sm" className="text-white hover:text-red-400">
+            <Button variant="ghost" size="sm" className="text-slate-900 hover:text-red-500 hover:bg-red-50">
               <Globe className="h-4 w-4 mr-2" />
               EN
             </Button>
-            <Button className="bg-white text-slate-900 hover:bg-red-50 rounded-full px-6">
+            <Button className="bg-slate-900 text-white hover:bg-slate-800 rounded-full px-6">
               Get App
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-white"
+            className="lg:hidden text-slate-900"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -71,17 +71,17 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-slate-900/95 backdrop-blur-md">
+        <div className="lg:hidden bg-white border-t border-gray-200">
           <div className="px-4 pt-2 pb-6 space-y-4">
             {navigation.map((item) => (
               <div key={item.name} className="space-y-2">
-                <div className="text-white font-semibold">{item.name}</div>
+                <div className="text-slate-900 font-semibold">{item.name}</div>
                 <div className="pl-4 space-y-2">
                   {item.items.map((subItem) => (
                     <Link
                       key={subItem.name}
                       to={subItem.href}
-                      className="block text-gray-300 hover:text-red-400 transition-colors"
+                      className="block text-gray-600 hover:text-red-500 transition-colors"
                     >
                       {subItem.name}
                     </Link>
@@ -90,11 +90,11 @@ const Navbar = () => {
               </div>
             ))}
             <div className="pt-4 space-y-2">
-              <Button variant="ghost" className="w-full text-white hover:text-red-400">
+              <Button variant="ghost" className="w-full text-slate-900 hover:text-red-500 hover:bg-red-50">
                 <Globe className="h-4 w-4 mr-2" />
                 EN
               </Button>
-              <Button className="w-full bg-white text-slate-900 hover:bg-red-50 rounded-full">
+              <Button className="w-full bg-slate-900 text-white hover:bg-slate-800 rounded-full">
                 Get App
               </Button>
             </div>
