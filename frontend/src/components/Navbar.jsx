@@ -14,22 +14,24 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">3</span>
-            </div>
-            <span className="text-2xl font-bold text-white">3dotpay</span>
+          <Link to="/" className="flex items-center space-x-3">
+            <img 
+              src="https://customer-assets.emergentagent.com/job_payapp-three/artifacts/n72ih0mg_Untitled%20Project.png" 
+              alt="3dotpay Logo" 
+              className="w-12 h-12 object-contain"
+            />
+            <span className="text-2xl font-bold text-slate-900">3dotpay</span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {navigation.map((item) => (
               <DropdownMenu key={item.name}>
-                <DropdownMenuTrigger className="flex items-center space-x-1 px-4 py-2 text-white hover:text-red-400 transition-colors">
+                <DropdownMenuTrigger className="flex items-center space-x-1 px-4 py-2 text-slate-900 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors">
                   <span>{item.name}</span>
                   <ChevronDown className="h-4 w-4" />
                 </DropdownMenuTrigger>
