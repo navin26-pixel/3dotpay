@@ -57,10 +57,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-12">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center space-x-2 mb-6">
-              <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">3</span>
-              </div>
+            <Link to="/" className="flex items-center space-x-3 mb-6">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_payapp-three/artifacts/n72ih0mg_Untitled%20Project.png" 
+                alt="3dotpay Logo" 
+                className="w-12 h-12 object-contain"
+              />
               <span className="text-2xl font-bold">3dotpay</span>
             </Link>
             <p className="text-gray-400 mb-6 max-w-sm">
