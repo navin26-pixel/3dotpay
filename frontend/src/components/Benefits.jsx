@@ -1,56 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { benefitsService } from '../services/benefitsService';
+import React from 'react';
+import { benefits } from '../mockData';
 
 const Benefits = () => {
-  const [benefits, setBenefits] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchBenefits = async () => {
-      try {
-        setLoading(true);
-        const data = await benefitsService.getAll();
-        setBenefits(data);
-        setError(null);
-      } catch (err) {
-        console.error('Failed to fetch benefits:', err);
-        setError('Failed to load benefits');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBenefits();
-  }, []);
-
-  if (loading) {
-    return (
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="animate-pulse">
-            <div className="h-12 bg-gray-200 rounded w-1/2 mx-auto mb-16"></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-96 bg-gray-200 rounded-3xl"></div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-red-500">{error}</p>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
