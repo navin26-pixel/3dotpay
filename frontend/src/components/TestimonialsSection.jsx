@@ -82,28 +82,26 @@ const TestimonialsSection = () => {
             <div className="flex gap-4">
               <button
                 onClick={handlePrev}
-                className="w-12 h-12 rounded-full bg-white hover:shadow-xl shadow-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 group"
+                className="w-12 h-12 rounded-full hover:shadow-xl shadow-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 group"
                 style={{ 
-                  border: '2px solid rgb(235, 0, 40)'
+                  backgroundColor: 'rgb(235, 0, 40)'
                 }}
                 aria-label="Previous testimonial"
               >
                 <ArrowLeft 
-                  className="w-5 h-5 transition-colors duration-300" 
-                  style={{ color: 'rgb(235, 0, 40)' }}
+                  className="w-5 h-5 transition-colors duration-300 text-white" 
                 />
               </button>
               <button
                 onClick={handleNext}
-                className="w-12 h-12 rounded-full bg-white hover:shadow-xl shadow-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 group"
+                className="w-12 h-12 rounded-full hover:shadow-xl shadow-md flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 group"
                 style={{ 
-                  border: '2px solid rgb(235, 0, 40)'
+                  backgroundColor: 'rgb(235, 0, 40)'
                 }}
                 aria-label="Next testimonial"
               >
                 <ArrowRight 
-                  className="w-5 h-5 transition-colors duration-300" 
-                  style={{ color: 'rgb(235, 0, 40)' }}
+                  className="w-5 h-5 transition-colors duration-300 text-white" 
                 />
               </button>
             </div>
