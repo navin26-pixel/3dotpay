@@ -57,13 +57,17 @@ const Navbar = () => {
           {/* Logo - Changes color based on scroll */}
           <Link to="/" className="flex items-center">
             <img 
-              src={isScrolled ? logo : logoWhite} 
+              src={logo} 
               alt="3dotpay Logo" 
               className={`object-contain transition-all duration-500 ${
                 isScrolled 
-                  ? 'w-12 h-12 lg:w-14 lg:h-14' 
-                  : 'w-12 h-12 lg:w-14 lg:h-14'
+                  ? 'h-10 lg:h-12' 
+                  : 'h-10 lg:h-12 brightness-0 invert'
               }`}
+              style={{
+                filter: isScrolled ? 'none' : 'brightness(0) invert(1)',
+                mixBlendMode: isScrolled ? 'normal' : 'normal'
+              }}
             />
           </Link>
 
