@@ -54,27 +54,12 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo - Shows image when scrolled, white version when not scrolled */}
-          <Link to="/" className="flex items-center relative">
-            {/* Black logo for scrolled state */}
+          {/* Logo - Shows image when scrolled, uses just image always */}
+          <Link to="/" className="flex items-center">
             <img 
               src={logo} 
               alt="3dotpay Logo" 
-              className={`object-contain transition-all duration-500 h-10 lg:h-12 ${
-                isScrolled ? 'opacity-100' : 'opacity-0'
-              }`}
-            />
-            {/* White inverted logo for transparent navbar */}
-            <img 
-              src={logo} 
-              alt="3dotpay Logo" 
-              className={`object-contain absolute top-0 left-0 transition-all duration-500 h-10 lg:h-12 ${
-                isScrolled ? 'opacity-0' : 'opacity-100'
-              }`}
-              style={{
-                filter: 'brightness(0) invert(1)',
-                WebkitFilter: 'brightness(0) invert(1)'
-              }}
+              className="object-contain transition-all duration-500 h-10 lg:h-12"
             />
           </Link>
 
