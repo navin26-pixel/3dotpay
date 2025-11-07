@@ -9,8 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import logo from '../images/logo.png';
-import logoWhite from '../images/logo.png'; // You'll need a white version
+import logo from '../images/logo-with-text.png';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
