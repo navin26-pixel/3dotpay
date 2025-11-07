@@ -62,11 +62,10 @@ const Navbar = () => {
               className={`object-contain transition-all duration-500 ${
                 isScrolled 
                   ? 'h-10 lg:h-12' 
-                  : 'h-10 lg:h-12 brightness-0 invert'
+                  : 'h-10 lg:h-12'
               }`}
               style={{
-                filter: isScrolled ? 'none' : 'brightness(0) invert(1)',
-                mixBlendMode: isScrolled ? 'normal' : 'normal'
+                filter: isScrolled ? 'none' : 'brightness(0) invert(1) drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))'
               }}
             />
           </Link>
