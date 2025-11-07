@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from './ui/button';
-import cover from '../images/bg-hero.webp'; 
+import cover from '../images/hero-bg-new.jpg'; 
 
 const Hero = () => {
   return (
