@@ -1,11 +1,38 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { benefits } from '../mockData';
 
 const Benefits = () => {
+  const [visibleCards, setVisibleCards] = useState([]);
+  const cardRefs = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = cardRefs.current.indexOf(entry.target);
+            if (index !== -1 && !visibleCards.includes(index)) {
+              setTimeout(() => {
+                setVisibleCards((prev) => [...prev, index]);
+              }, index * 100); // Stagger animation
+            }
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [visibleCards]);
+
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl lg:text-5xl font-bold text-center text-slate-900 mb-16">
+        <h2 className="text-4xl lg:text-5xl font-bold text-center text-slate-900 mb-16 animate-fade-in">
          Elevated, <br />Your Everyday Banking.
         </h2>
 
@@ -13,9 +40,17 @@ const Benefits = () => {
           {benefits.map((benefit, index) => (
             <div
               key={benefit.id}
-              className="group relative overflow-hidden rounded-3xl h-96 transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+              ref={(el) => (cardRefs.current[index] = el)}
+              className={`group relative overflow-hidden rounded-3xl h-96 transition-all duration-700 hover:scale-105 hover:shadow-2xl ${
+                visibleCards.includes(index)
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-10'
+              }`}
               style={{
-                transform: `translateY(${index % 2 === 0 ? '20px' : '0px'})`
+                transform: visibleCards.includes(index)
+                  ? `translateY(${index % 2 === 0 ? '20px' : '0px'})`
+                  : 'translateY(40px)',
+                transitionDelay: `${index * 100}ms`
               }}
             >
               {/* Background Image with reduced opacity */}
