@@ -69,11 +69,16 @@ const Navbar = () => {
             />
           </Link>
 
-          {/* Desktop Navigation - Revolut Style */}
+          {/* Desktop Navigation - Hover-based Dropdowns */}
           <div className="hidden lg:flex items-center space-x-8">
             {navigation.map((item) => (
-              <DropdownMenu key={item.name}>
-                <DropdownMenuTrigger className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-300 font-medium ${
+              <div 
+                key={item.name}
+                className="relative"
+                onMouseEnter={() => setHoveredMenu(item.name)}
+                onMouseLeave={() => setHoveredMenu(null)}
+              >
+                <button className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-300 font-medium ${
                   isScrolled
                     ? 'text-gray-600 hover:text-gray-900'
                     : 'text-white hover:text-white/90'
@@ -81,21 +86,25 @@ const Navbar = () => {
                   <span className="text-sm font-normal">{item.name}</span>
                   <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${
                     isScrolled ? 'text-gray-400' : 'text-white/70'
-                  }`} />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-white border border-gray-100 mt-4 rounded-xl shadow-xl py-2">
-                  {item.items.map((subItem) => (
-                    <DropdownMenuItem key={subItem.name} asChild>
+                  } ${hoveredMenu === item.name ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {/* Dropdown Menu */}
+                {hoveredMenu === item.name && (
+                  <div className="absolute top-full left-0 mt-2 w-56 bg-white border border-gray-100 rounded-xl shadow-xl py-2 z-50">
+                    {item.items.map((subItem) => (
                       <Link 
+                        key={subItem.name}
                         to={subItem.href} 
-                        className="cursor-pointer px-4 py-3 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                        className="block px-4 py-3 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                        onClick={() => setHoveredMenu(null)}
                       >
                         {subItem.name}
                       </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
 
