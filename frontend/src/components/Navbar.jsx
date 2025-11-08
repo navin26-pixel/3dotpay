@@ -17,6 +17,8 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [hoveredMenu, setHoveredMenu] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   useEffect(() => {
     const handleScroll = () => {
