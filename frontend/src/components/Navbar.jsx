@@ -194,14 +194,31 @@ const Navbar = () => {
               </div>
             ))}
             <div className="pt-6 space-y-4 border-t border-gray-200">
-              <Button variant="ghost" className={`w-full justify-start rounded-lg py-3 text-sm ${
-                isScrolled
-                  ? 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                  : 'text-white hover:bg-white/10'
-              }`}>
-                <Globe className="h-4 w-4 mr-3" />
-                English
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className={`w-full justify-start rounded-lg py-3 text-sm ${
+                    isScrolled
+                      ? 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                      : 'text-white hover:bg-white/10'
+                  }`}>
+                    <Globe className="h-4 w-4 mr-3" />
+                    {languages.find(lang => lang.code === selectedLanguage)?.flag} {languages.find(lang => lang.code === selectedLanguage)?.name}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-white border border-gray-100 rounded-xl shadow-xl py-2 w-48">
+                  {languages.map((lang) => (
+                    <DropdownMenuItem 
+                      key={lang.code}
+                      onClick={() => setSelectedLanguage(lang.code)}
+                      className={`cursor-pointer px-4 py-3 text-sm hover:bg-gray-50 transition-colors ${
+                        selectedLanguage === lang.code ? 'text-red-500 font-semibold' : 'text-gray-600'
+                      }`}
+                    >
+                      <span className="mr-2">{lang.flag}</span> {lang.name}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
               <Button className={`w-full rounded-lg py-3 text-sm font-medium ${
                 isScrolled
                   ? 'bg-gray-900 text-white hover:bg-gray-800'
