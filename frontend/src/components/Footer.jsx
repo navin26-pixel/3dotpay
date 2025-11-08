@@ -120,13 +120,13 @@ const Footer = () => {
             © 2025 3dotpay. All rights reserved.
           </p>
           <div className="flex space-x-6 text-sm">
-            <Link to="#" className="text-gray-400 hover:text-red-400 transition-colors">
+            <Link to="/privacy-policy" className="text-gray-400 hover:text-red-400 transition-colors">
               Privacy
             </Link>
-            <Link to="#" className="text-gray-400 hover:text-red-400 transition-colors">
+            <Link to="/terms-of-service" className="text-gray-400 hover:text-red-400 transition-colors">
               Terms
             </Link>
-            <Link to="#" className="text-gray-400 hover:text-red-400 transition-colors">
+            <Link to="/cookie-policy" className="text-gray-400 hover:text-red-400 transition-colors">
               Cookies
             </Link>
           </div>
