@@ -2,42 +2,52 @@
 
 export const navigation = [
   {
-    name: 'Product & Features',
+    name: 'Products',
     items: [
-      { name: 'Virtual Card', href: '#' },
-      { name: 'Physical Card', href: '#' },
-      { name: 'Multi-Currency Wallet', href: '#' },
-      { name: 'P2P Transfer', href: '#' },
-      { name: 'Security Features', href: '#' }
+      { name: 'Virtual Card', href: '/virtual-card' },
+      { name: 'Physical Card', href: '/physical-card' },
+      { name: 'Multi-Currency Wallet', href: '/multi-currency-wallet' },
+      { name: 'P2P Transfer', href: '/p2p-transfer' }
     ]
   },
   {
     name: 'Company',
     items: [
-      { name: 'About Us', href: '#' },
-      { name: 'Careers', href: '#' },
-      { name: 'Press', href: '#' },
-      { name: 'Partners', href: '#' }
+      { name: 'About Us', href: '/about' },
+      { name: 'Careers', href: '/careers' },
+      { name: 'Press', href: '/press' },
+      { name: 'Partners', href: '/partners' }
     ]
   },
   {
     name: 'Resources',
     items: [
-      { name: 'Blog', href: '#' },
-      { name: 'Help Center', href: '#' },
-      { name: 'API Documentation', href: '#' },
-      { name: 'Developer Portal', href: '#' }
+      { name: 'Blog', href: '/blog' },
+      { name: 'Help Center', href: '/help-center' },
+      { name: 'API Docs', href: '/api-docs' },
+      { name: 'Community', href: '/community' }
     ]
   },
   {
-    name: 'Support',
+    name: 'Legal',
     items: [
-      { name: 'Contact Us', href: '#' },
-      { name: 'FAQs', href: '#' },
-      { name: 'Live Chat', href: '#' },
-      { name: 'Status', href: '#' }
+      { name: 'Privacy Policy', href: '/privacy-policy' },
+      { name: 'Terms of Service', href: '/terms-of-service' },
+      { name: 'Cookie Policy', href: '/cookie-policy' },
+      { name: 'Compliance', href: '/compliance' }
     ]
   }
+];
+
+export const languages = [
+  { code: 'en', name: 'English', flag: '🇬🇧' },
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+  { code: 'zh', name: '中文', flag: '🇨🇳' },
+  { code: 'th', name: 'ไทย', flag: '🇹🇭' },
+  { code: 'ja', name: '日本語', flag: '🇯🇵' },
+  { code: 'ko', name: '한국어', flag: '🇰🇷' }
 ];
 
 export const benefits = [
