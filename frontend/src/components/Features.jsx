@@ -11,16 +11,6 @@ const iconMap = {
   ArrowLeftRight
 };
 
-// Feature images mapping
-const featureImages = [
-  'https://images.unsplash.com/photo-1524673450801-b5aa9b621b76?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDF8MHwxfHNlYXJjaHwyfHxjcnlwdG9jdXJyZW5jeSUyMHBheW1lbnR8ZW58MHx8fGJsdWV8MTc2MjQ5NjM5N3ww&ixlib=rb-4.1.0&q=85', // Customizable Crypto Cards
-  'https://images.pexels.com/photos/14911400/pexels-photo-14911400.jpeg', // Instant Virtual Cards
-  'https://images.unsplash.com/photo-1597781914467-a5b93258e748?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDF8MHwxfHNlYXJjaHwxfHxjcnlwdG9jdXJyZW5jeSUyMHBheW1lbnR8ZW58MHx8fGJsdWV8MTc2MjQ5NjM5N3ww&ixlib=rb-4.1.0&q=85', // Multi-Device Security
-  'https://images.unsplash.com/photo-1660642056896-226f0e491116?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDF8MHwxfHNlYXJjaHwzfHxjcnlwdG9jdXJyZW5jeSUyMHBheW1lbnR8ZW58MHx8fGJsdWV8MTc2MjQ5NjM5N3ww&ixlib=rb-4.1.0&q=85', // Global Acceptance
-  'https://images.pexels.com/photos/9169180/pexels-photo-9169180.jpeg', // Multi-Currency Support
-  'https://images.pexels.com/photos/6694477/pexels-photo-6694477.jpeg' // Low-Fee Transactions
-];
-
 const Features = () => {
   return (
     <section className="py-24 bg-gradient-to-b from-white to-slate-50/80">
@@ -53,36 +43,25 @@ const Features = () => {
                 {/* Gradient Border Effect */}
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-red-500 to-pink-600 rounded-2xl blur opacity-0 group-hover:opacity-20 transition duration-300"></div>
                 
-                <div className="relative bg-white rounded-2xl overflow-hidden border border-slate-200/60 shadow-sm hover:shadow-2xl transition-all duration-500 hover:border-red-100">
+                <div className="relative bg-white rounded-2xl p-8 border border-slate-200/60 shadow-sm hover:shadow-2xl transition-all duration-500 hover:border-red-100">
                   
-                  {/* Background Image */}
-                  <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
-                    <img 
-                      src={featureImages[index]} 
-                      alt={feature.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  <div className="relative p-8">
-                    {/* Icon Container */}
-                    <div className="relative mb-8">
-                      <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center shadow-lg">
-                        {Icon && <Icon className="h-8 w-8 text-white" />}
-                      </div>
-                      <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full border border-slate-200 flex items-center justify-center">
-                        <span className="text-xs font-bold text-red-600">{index + 1}</span>
-                      </div>
+                  {/* Icon Container */}
+                  <div className="relative mb-8">
+                    <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center shadow-lg">
+                      {Icon && <Icon className="h-8 w-8 text-white" />}
                     </div>
-
-                    {/* Content */}
-                    <h3 className="text-2xl font-bold text-slate-900 mb-4 leading-tight">
-                      {feature.title}
-                    </h3>
-                    <p className="text-slate-600 leading-relaxed text-lg">
-                      {feature.description}
-                    </p>
+                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full border border-slate-200 flex items-center justify-center">
+                      <span className="text-xs font-bold text-red-600">{index + 1}</span>
+                    </div>
                   </div>
+
+                  {/* Content */}
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4 leading-tight">
+                    {feature.title}
+                  </h3>
+                  <p className="text-slate-600 leading-relaxed text-lg">
+                    {feature.description}
+                  </p>
 
                   {/* Subtle Hover Indicator */}
                   <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-red-500 to-pink-600 group-hover:w-full transition-all duration-500 rounded-b-2xl"></div>

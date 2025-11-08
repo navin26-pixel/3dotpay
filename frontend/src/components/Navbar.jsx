@@ -9,7 +9,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import logo from '../images/logo-with-text.png';
+import logoDefault from '../images/new logo2.png'; // Logo for transparent background
+import logoWhiteBg from '../images/logo.png'; // Logo for white background
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -42,6 +43,9 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
+  // Choose the right logo based on scroll state
+  const currentLogo = isScrolled ? logoWhiteBg : logoDefault;
+
   return (
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -54,10 +58,10 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo - Shows image when scrolled, uses just image always */}
+          {/* Logo - Changes based on scroll state */}
           <Link to="/" className="flex items-center">
             <img 
-              src={logo} 
+              src={currentLogo} 
               alt="3dotpay Logo" 
               className="object-contain transition-all duration-500 h-10 lg:h-12"
             />
