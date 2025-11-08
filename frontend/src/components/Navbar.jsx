@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown, Globe } from 'lucide-react';
-import { navigation } from '../mockData';
+import { navigation, languages } from '../mockData';
 import { Button } from './ui/button';
 import {
   DropdownMenu,
