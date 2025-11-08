@@ -108,20 +108,37 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Right Side Actions - Revolut Style */}
+          {/* Right Side Actions - Language Selector & Get App */}
           <div className="hidden lg:flex items-center space-x-4">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className={`rounded-lg transition-all duration-300 text-sm font-normal ${
-                isScrolled
-                  ? 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                  : 'text-white hover:text-white/90 hover:bg-white/10'
-              }`}
-            >
-              <Globe className="h-4 w-4 mr-2" />
-              EN
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={`rounded-lg transition-all duration-300 text-sm font-normal ${
+                    isScrolled
+                      ? 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                      : 'text-white hover:text-white/90 hover:bg-white/10'
+                  }`}
+                >
+                  <Globe className="h-4 w-4 mr-2" />
+                  {languages.find(lang => lang.code === selectedLanguage)?.flag} {languages.find(lang => lang.code === selectedLanguage)?.name}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-white border border-gray-100 rounded-xl shadow-xl py-2 w-48">
+                {languages.map((lang) => (
+                  <DropdownMenuItem 
+                    key={lang.code}
+                    onClick={() => setSelectedLanguage(lang.code)}
+                    className={`cursor-pointer px-4 py-3 text-sm hover:bg-gray-50 transition-colors ${
+                      selectedLanguage === lang.code ? 'text-red-500 font-semibold' : 'text-gray-600'
+                    }`}
+                  >
+                    <span className="mr-2">{lang.flag}</span> {lang.name}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             <Button className={`rounded-lg px-6 py-2 transition-all duration-300 text-sm font-medium ${
               isScrolled
                 ? 'bg-gray-900 text-white hover:bg-gray-800 shadow-sm'
