@@ -1,53 +1,60 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Linkedin, Instagram, Youtube } from 'lucide-react';
+import { Facebook, Linkedin, Instagram, Youtube } from 'lucide-react';
+
+// X (Twitter) Logo as SVG component
+const XLogo = ({ className }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
 
 const Footer = () => {
   const footerSections = [
     {
-      title: 'Product',
+      title: 'Products',
       links: [
-        { name: 'Virtual Card', href: '#' },
-        { name: 'Physical Card', href: '#' },
-        { name: 'Multi-Currency Wallet', href: '#' },
-        { name: 'P2P Transfer', href: '#' }
+        { name: 'Virtual Card', href: '/virtual-card' },
+        { name: 'Physical Card', href: '/physical-card' },
+        { name: 'Multi-Currency Wallet', href: '/multi-currency-wallet' },
+        { name: 'P2P Transfer', href: '/p2p-transfer' }
       ]
     },
     {
       title: 'Company',
       links: [
-        { name: 'About Us', href: '#' },
-        { name: 'Careers', href: '#' },
-        { name: 'Press', href: '#' },
-        { name: 'Partners', href: '#' }
+        { name: 'About Us', href: '/about' },
+        { name: 'Careers', href: '/careers' },
+        { name: 'Press', href: '/press' },
+        { name: 'Partners', href: '/partners' }
       ]
     },
     {
       title: 'Resources',
       links: [
-        { name: 'Blog', href: '#' },
-        { name: 'Help Center', href: '#' },
-        { name: 'API Docs', href: '#' },
-        { name: 'Community', href: '#' }
+        { name: 'Blog', href: '/blog' },
+        { name: 'Help Center', href: '/help-center' },
+        { name: 'API Docs', href: '/api-docs' },
+        { name: 'Community', href: '/community' }
       ]
     },
     {
       title: 'Legal',
       links: [
-        { name: 'Privacy Policy', href: '#' },
-        { name: 'Terms of Service', href: '#' },
-        { name: 'Cookie Policy', href: '#' },
-        { name: 'Compliance', href: '#' }
+        { name: 'Privacy Policy', href: '/privacy-policy' },
+        { name: 'Terms of Service', href: '/terms-of-service' },
+        { name: 'Cookie Policy', href: '/cookie-policy' },
+        { name: 'Compliance', href: '/compliance' }
       ]
     }
   ];
 
   const socialLinks = [
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Youtube, href: '#', label: 'YouTube' }
+    { icon: XLogo, href: 'https://x.com/3dotpay', label: 'X (Twitter)' },
+    { icon: Facebook, href: 'https://facebook.com/3dotpay', label: 'Facebook' },
+    { icon: Linkedin, href: 'https://linkedin.com/company/3dotpay', label: 'LinkedIn' },
+    { icon: Instagram, href: 'https://instagram.com/3dotpay', label: 'Instagram' },
+    { icon: Youtube, href: 'https://youtube.com/@3dotpay', label: 'YouTube' }
   ];
 
   return (
