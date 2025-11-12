@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Linkedin, Instagram, Youtube } from 'lucide-react';
+import logo from '../images/3dotpay.png';
 
 // X (Twitter) Logo as SVG component
 const XLogo = ({ className }) => (
@@ -65,11 +66,11 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center space-x-3 mb-6">
-              <img 
-                src="https://customer-assets.emergentagent.com/job_payapp-three/artifacts/n72ih0mg_Untitled%20Project.png" 
-                alt="3dotpay Logo" 
-                className="w-12 h-12 object-contain"
-              />
+               <img 
+              src={logo} 
+              alt="3dotpay Logo" 
+              className="object-contain transition-all duration-500 h-10 lg:h-12"
+            />
               <span className="text-2xl font-bold">3dotpay</span>
             </Link>
             <p className="text-gray-400 mb-6 max-w-sm">
