@@ -1,288 +1,361 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { CreditCard, Zap, Shield, Globe, Wallet, ArrowLeftRight } from 'lucide-react';
-import { features } from '../mockData';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 
-const iconMap = {
-  CreditCard,
-  Zap,
-  Shield,
-  Globe,
-  Wallet,
-  ArrowLeftRight
-};
+// Defining the features array outside the component to prevent re-creation on render
+const featuresData = [
+  {
+    title: "Global Payout",
+    subtitle: "Send Crypto, Receive Local Currency",
+    description: "Experience hassle-free sending. Every transaction is protected, every recipient just moments away, facilitating seamless cross-border transfers.",
+    phoneImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=800&fit=crop"
+  },
+  {
+    title: "Multi-Currency Wallet", 
+    subtitle: "Bridging Crypto and Everyday Life",
+    description: "Instantly switch between Crypto and Local Currency. Jump straight into action and access your funds easily and securely from a single interface.",
+    phoneImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=800&fit=crop"
+  },
+  {
+    title: "Credit & Collateral",
+    subtitle: "Unlock Your Financial Power", 
+    description: "Access instant funds using your crypto as collateral, with flexible repayment options and zero traditional credit checks. Fast, private, and efficient.",
+    phoneImage: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=800&fit=crop"
+  },
+  {
+    title: "Stake & Earn",
+    subtitle: "Grow Your Assets, Effortlessly",
+    description: "Put your crypto to work with daily rewards. Our secure staking platform allows you to passively grow your portfolio with competitive APYs.",
+    phoneImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=800&fit=crop"
+  },
+  {
+    title: "Swap & Convert",
+    subtitle: "Zero-Friction Crypto Conversions",
+    description: "Convert your assets or move funds in and out on the go, with competitive, transparent rates and minimal friction. Instant execution guaranteed.",
+    phoneImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=800&fit=crop"
+  },
+  {
+    title: "P2P Marketplace",
+    subtitle: "Peer-to-Peer, Powered By Security", 
+    description: "Connect directly with others to trade stablecoins and local currency. Enjoy secure, low-cost peer-to-peer trading with real-time settlement and escrow protection.",
+    phoneImage: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=800&fit=crop"
+  }
+];
 
-const Features = () => {
+const ACCENT_RED = '#D00000'; // Deep Crimson for a professional feel
+const LIGHT_RED = '#FFDEDE'; // Light red for hover background/highlights
+
+const ScrollPhoneAnimation = () => {
   const sectionRef = useRef(null);
-  const [activeFeature, setActiveFeature] = useState(0);
+  const [activeSection, setActiveSection] = useState(0);
+  const [isInSection, setIsInSection] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState(null);
 
-  // Mock images for each feature - replace with your actual images
-  const featureImages = [
-    'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop', // Custom cards
-    'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&h=400&fit=crop', // Virtual card
-    'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop', // Security
-    'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop', // Global
-    'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop', // Multi-currency
-    'https://images.unsplash.com/photo-1556155092-490a1ba16284?w=600&h=400&fit=crop' // Low fees
-  ];
+  // Smooth scroll to section
+  const scrollToSection = useCallback((index) => {
+    if (isScrolling) return;
+    
+    setIsScrolling(true);
+    
+    // Determine direction for animation purposes
+    setScrollDirection(index > activeSection ? 'down' : 'up');
+    setActiveSection(index);
 
-  // Mobile app interface data
-  const cryptoData = [
-    { symbol: 'BTC', name: 'Bitcoin', price: '$43,250', change: '+2.3%', trend: 'up' },
-    { symbol: 'ETH', name: 'Ethereum', price: '$2,850', change: '+1.7%', trend: 'up' },
-    { symbol: 'SOL', name: 'Solana', price: '$102', change: '+5.2%', trend: 'up' },
-    { symbol: 'USDT', name: 'Tether', price: '$1.00', change: '0.0%', trend: 'stable' },
-    { symbol: 'USDC', name: 'USD Coin', price: '$1.00', change: '0.0%', trend: 'stable' }
-  ];
+    // Timeout to re-enable scrolling after CSS transition completes
+    setTimeout(() => {
+      setIsScrolling(false);
+    }, 700); // Matches animation duration
+  }, [activeSection, isScrolling]);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const featureElements = entry.target.querySelectorAll('.feature-item');
-            featureElements.forEach((el, index) => {
-              setTimeout(() => {
-                el.classList.add('animate-fade-in-up');
-              }, index * 200);
-            });
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+  // Handle wheel scroll
+  const handleWheel = useCallback((e) => {
+    if (!isInSection || isScrolling) return;
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    e.preventDefault();
+    
+    const delta = Math.sign(e.deltaY);
+    
+    if (delta > 0) {
+      // Scroll down
+      if (activeSection < featuresData.length - 1) {
+        scrollToSection(activeSection + 1);
+      } else {
+        // Allow natural scroll out of the section
+        setIsScrolling(true);
+        setTimeout(() => {
+          setIsInSection(false);
+          setIsScrolling(false);
+        }, 300);
+      }
+    } else {
+      // Scroll up
+      if (activeSection > 0) {
+        scrollToSection(activeSection - 1);
+      } else {
+        // Allow natural scroll out of the section
+        setIsScrolling(true);
+        setTimeout(() => {
+          setIsInSection(false);
+          setIsScrolling(false);
+        }, 300);
+      }
     }
+  }, [isInSection, isScrolling, activeSection, scrollToSection]);
 
-    return () => observer.disconnect();
-  }, []);
+  // Handle keyboard navigation (Arrows and 1-6 keys)
+  const handleKeyDown = useCallback((e) => {
+    if (!isInSection || isScrolling) return;
+
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      e.preventDefault();
+      if (activeSection < featuresData.length - 1) {
+        scrollToSection(activeSection + 1);
+      }
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      if (activeSection > 0) {
+        scrollToSection(activeSection - 1);
+      }
+    } else if (e.key >= '1' && e.key <= featuresData.length.toString()) {
+      e.preventDefault();
+      const sectionIndex = parseInt(e.key) - 1;
+      scrollToSection(sectionIndex);
+    }
+  }, [isInSection, isScrolling, activeSection, scrollToSection]);
+
+  // Check if section is in view (using a simple bounding box check)
+  const checkSectionPosition = useCallback(() => {
+    if (!sectionRef.current) return;
+
+    const rect = sectionRef.current.getBoundingClientRect();
+    const isVisible = rect.top <= window.innerHeight * 0.7 && rect.bottom >= window.innerHeight * 0.3;
+    
+    if (isVisible && !isInSection) {
+      setIsInSection(true);
+      // Reset to first section when entering
+      setActiveSection(0); 
+    } else if (!isVisible && isInSection) {
+      setIsInSection(false);
+    }
+  }, [isInSection]);
+
+  // Touch handling for mobile (swiping)
+  const [touchStart, setTouchStart] = useState(0);
+  
+  const handleTouchStart = useCallback((e) => {
+    if (!isInSection) return;
+    setTouchStart(e.touches[0].clientY);
+  }, [isInSection]);
+
+  const handleTouchMove = useCallback((e) => {
+    if (!isInSection || isScrolling) return;
+    
+    const touchEnd = e.touches[0].clientY;
+    const diff = touchStart - touchEnd;
+
+    // Minimum swipe distance threshold
+    if (Math.abs(diff) > 50) { 
+      e.preventDefault(); // Prevent standard page scroll within the section
+      if (diff > 0) { // Swipe up = Scroll Down
+        if (activeSection < featuresData.length - 1) {
+          scrollToSection(activeSection + 1);
+        }
+      } else { // Swipe down = Scroll Up
+        if (activeSection > 0) {
+          scrollToSection(activeSection - 1);
+        }
+      }
+      setTouchStart(touchEnd); // Reset touch start position
+    }
+  }, [isInSection, isScrolling, touchStart, activeSection, scrollToSection]);
+
+  // Effect for setting up event listeners
+  useEffect(() => {
+    const currentSection = sectionRef.current;
+    
+    window.addEventListener('scroll', checkSectionPosition, { passive: true });
+    window.addEventListener('keydown', handleKeyDown);
+    
+    // Add scroll/touch listeners only to the section when present
+    if (currentSection) {
+      currentSection.addEventListener('wheel', handleWheel, { passive: false });
+      currentSection.addEventListener('touchstart', handleTouchStart, { passive: true });
+      currentSection.addEventListener('touchmove', handleTouchMove, { passive: false });
+    }
+    
+    checkSectionPosition(); // Initial check
+
+    return () => {
+      window.removeEventListener('scroll', checkSectionPosition);
+      window.removeEventListener('keydown', handleKeyDown);
+      
+      if (currentSection) {
+        currentSection.removeEventListener('wheel', handleWheel);
+        currentSection.removeEventListener('touchstart', handleTouchStart);
+        currentSection.removeEventListener('touchmove', handleTouchMove);
+      }
+    };
+  }, [checkSectionPosition, handleKeyDown, handleWheel, handleTouchStart, handleTouchMove]);
 
   return (
-    <section ref={sectionRef} className="py-24 bg-gradient-to-b from-white to-slate-50/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 rounded-full border border-red-100 mb-6">
-            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-            <span className="text-red-700 font-medium text-sm">Why Choose 3dotpay</span>
-          </div>
-          <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-            Built for the<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600">
-              Future of Money
-            </span>
-          </h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Experience next-generation financial tools designed for the crypto era. 
-            Secure, fast, and borderless—just like your digital assets.
-          </p>
-        </div>
+    <section 
+      ref={sectionRef}
+      // Clean white background for a professional look
+      className="relative w-full h-screen bg-white overflow-hidden flex items-center justify-center font-inter"
+    >
+      {/* Subtle background element (optional noise/gradient) */}
+      <div className="absolute inset-0 opacity-10">
+          {/* Subtle gradient from center for depth */}
+          <div className="absolute top-1/2 left-1/2 w-[150%] h-[150%] bg-[radial-gradient(ellipse_at_center,_var(--tw-color-gray-50)_0%,_var(--tw-color-white)_50%)] transform -translate-x-1/2 -translate-y-1/2"></div>
+      </div>
 
-        {/* Mobile App Preview + Features Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-          {/* Mobile App Preview */}
-          <div className="relative">
-            <div className="sticky top-24">
-              {/* Mobile Device Frame */}
-              <div className="relative mx-auto w-80 h-[600px] bg-slate-900 rounded-[2.5rem] border-[14px] border-slate-900 shadow-2xl">
-                {/* Notch */}
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-40 h-6 bg-slate-900 rounded-b-2xl z-20"></div>
-                
-                {/* Screen Content */}
-                <div className="relative w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-[2rem] overflow-hidden">
-                  {/* App Header */}
-                  <div className="pt-12 px-6 pb-4 bg-gradient-to-r from-red-500 to-pink-600">
-                    <div className="flex items-center justify-between text-white">
-                      <h3 className="text-xl font-bold">3dotpay Wallet</h3>
-                      <div className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                        <span className="text-sm">Live</span>
-                      </div>
-                    </div>
-                    <p className="text-white/80 text-sm mt-1">Your crypto, your control</p>
-                  </div>
-
-                  {/* Crypto Prices List */}
-                  <div className="p-4 space-y-3">
-                    {cryptoData.map((crypto, index) => (
-                      <div
-                        key={crypto.symbol}
-                        className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-white animate-fade-in"
-                        style={{ animationDelay: `${index * 100}ms` }}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                              <span className="font-bold text-sm">{crypto.symbol}</span>
-                            </div>
-                            <div>
-                              <div className="font-semibold">{crypto.name}</div>
-                              <div className="text-white/60 text-sm">{crypto.price}</div>
-                            </div>
-                          </div>
-                          <div className={`text-sm font-semibold ${
-                            crypto.trend === 'up' ? 'text-green-400' : 
-                            crypto.trend === 'down' ? 'text-red-400' : 'text-white/60'
-                          }`}>
-                            {crypto.change}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Transaction Preview */}
-                  <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-white">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-white/60">Recent Transaction</span>
-                      <span className="text-green-400 text-sm">Completed</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-pink-600 rounded-full flex items-center justify-center">
-                          <CreditCard className="w-4 h-4" />
-                        </div>
-                        <span>Card Payment</span>
-                      </div>
-                      <span className="font-semibold">-$45.99</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-r from-red-500 to-pink-600 rounded-full blur-xl opacity-20 animate-pulse"></div>
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-blue-500 rounded-full blur-xl opacity-20 animate-pulse delay-1000"></div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 w-full max-w-7xl h-full mx-auto items-center relative z-10">
+        
+        {/* Left Side - Content */}
+        <div className="px-8 lg:px-16 h-full flex flex-col justify-center relative">
+          <div 
+            key={activeSection}
+            // Transition using opacity and subtle Y-shift for smoothness
+            className={`max-w-xl transition-all duration-700 ease-in-out ${
+              isScrolling ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
+            }`}
+          >
+            <div className="text-sm font-semibold text-gray-500 mb-4 tracking-widest uppercase">
+              FEATURE 0{activeSection + 1} / 0{featuresData.length}
             </div>
-          </div>
-
-          {/* Features List */}
-          <div className="space-y-8">
-            {features.map((feature, index) => {
-              const Icon = iconMap[feature.icon];
-              return (
-                <div
-                  key={index}
-                  className="feature-item opacity-0 transform translate-y-8 transition-all duration-500"
-                >
-                  <div className="group relative bg-white rounded-2xl p-8 border border-slate-200/60 shadow-sm hover:shadow-2xl transition-all duration-500 hover:border-red-100">
-                    {/* Icon Container */}
-                    <div className="relative mb-6">
-                      <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center shadow-lg">
-                        {Icon && <Icon className="h-8 w-8 text-white" />}
-                      </div>
-                      <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full border border-slate-200 flex items-center justify-center">
-                        <span className="text-xs font-bold text-red-600">{index + 1}</span>
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <h3 className="text-2xl font-bold text-slate-900 mb-4 leading-tight">
-                      {feature.title}
-                    </h3>
-                    <p className="text-slate-600 leading-relaxed text-lg">
-                      {feature.description}
-                    </p>
-
-                    {/* Hover Indicator */}
-                    <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-red-500 to-pink-600 group-hover:w-full transition-all duration-500 rounded-b-2xl"></div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Interactive Feature Showcase */}
-        <div className="space-y-32">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className={`flex flex-col lg:flex-row items-center gap-12 ${
-                index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-              }`}
+            <h2 className="text-4xl lg:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">
+              {featuresData[activeSection].title}
+            </h2>
+            {/* Subtitle uses the red accent */}
+            <h3 className="text-xl lg:text-2xl font-medium" style={{ color: ACCENT_RED }}>
+              {featuresData[activeSection].subtitle}
+            </h3>
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed max-w-md mt-4">
+              {featuresData[activeSection].description}
+            </p>
+            <button 
+              className="group text-white border-none px-8 py-4 rounded-xl text-base font-semibold cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] flex items-center gap-3"
+              style={{ backgroundColor: ACCENT_RED, boxShadow: `0 15px 30px -10px ${ACCENT_RED}55` }}
             >
-              {/* Text Content */}
-              <div className="lg:w-1/2 space-y-6">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 rounded-full border border-red-100">
-                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                  <span className="text-red-700 font-medium text-sm">Feature {index + 1}</span>
-                </div>
-                <h3 className="text-4xl font-bold text-slate-900 leading-tight">
-                  {feature.title}
-                </h3>
-                <p className="text-xl text-slate-600 leading-relaxed">
-                  {feature.description}
-                </p>
-                <div className="flex items-center gap-4 pt-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center shadow-lg">
-                    {iconMap[feature.icon] && React.createElement(iconMap[feature.icon], { className: "h-6 w-6 text-white" })}
-                  </div>
-                  <span className="text-lg font-semibold text-slate-700">
-                    Included with 3dotpay
-                  </span>
-                </div>
-              </div>
+              Get Started Now
+              <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19"/>
+              </svg>
+            </button>
+          </div>
 
-              {/* Image/Visual Content */}
-              <div className="lg:w-1/2">
-                <div className="relative">
-                  <img
-                    src={featureImages[index]}
-                    alt={feature.title}
-                    className="rounded-2xl shadow-2xl w-full h-auto"
-                  />
-                  {/* Overlay Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent rounded-2xl"></div>
-                  
-                  {/* Floating Card Elements for Customizable Cards */}
-                  {index === 0 && (
-                    <>
-                      <div className="absolute -top-4 -right-4 w-32 h-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl shadow-2xl transform rotate-12 animate-float"></div>
-                      <div className="absolute -bottom-4 -left-4 w-28 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow-2xl transform -rotate-6 animate-float delay-1000"></div>
-                    </>
-                  )}
+          {/* Modern Pager/Section Indicator */}
+          <div className="absolute left-8 lg:left-16 bottom-10 flex items-center gap-6">
+            <div className="flex gap-2">
+              {featuresData.map((_, index) => (
+                <div 
+                  key={index}
+                  className={`h-1 rounded-full cursor-pointer transition-all duration-500 ${
+                    index === activeSection 
+                      // Active: wider, red accent
+                      ? 'bg-red-700 w-8' 
+                      // Inactive: narrow, gray
+                      : 'bg-gray-300 hover:bg-gray-400 w-2'
+                  }`}
+                  style={{ backgroundColor: index === activeSection ? ACCENT_RED : undefined }}
+                  onClick={() => scrollToSection(index)}
+                />
+              ))}
+            </div>
+            <div className="text-sm text-gray-500 font-medium select-none">
+              {activeSection + 1} / {featuresData.length}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side - Clean Phone Display */}
+        <div className="flex items-center justify-center h-full p-8">
+          <div className="relative w-72 lg:w-80 h-[600px]">
+            <div className="relative w-full h-full">
+              {/* Phone Shell: Cleaner drop shadow, no rotation */}
+              <img 
+                src="https://staticsource1.redotpay.com/web/img/home/v3/phone-shell.webp?t=1763006556389"
+                alt="Phone"
+                className="w-full h-full object-contain drop-shadow-2xl relative z-10"
+                style={{ filter: `drop-shadow(0 25px 25px ${ACCENT_RED}1A)` }} // Subtle red drop shadow
+              />
+              
+              {/* Phone Screen with subtle image transition */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[88%] h-[95%] rounded-[40px] overflow-hidden z-0 bg-black">
+                <img
+                  key={featuresData[activeSection].phoneImage} // Key forces remount/animation
+                  src={featuresData[activeSection].phoneImage}
+                  alt={featuresData[activeSection].title}
+                  // Apply custom animation class based on scroll direction
+                  className={`w-full h-full object-cover transition-none ${
+                    scrollDirection === 'down' 
+                      ? 'animate-phone-slide-up' 
+                      : scrollDirection === 'up'
+                      ? 'animate-phone-slide-down'
+                      : 'animate-phone-fade-in' // Default state when entering section
+                  }`}
+                />
+                {/* Subtle bottom label on the screen */}
+                <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                    <span className="text-white text-lg font-bold">
+                        {featuresData[activeSection].title}
+                    </span>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-20 pt-16 border-t border-slate-200/60">
-          <p className="text-slate-600 text-lg mb-6">
-            Ready to experience the future of payments?
-          </p>
-          <button className="bg-slate-900 text-white hover:bg-slate-800 rounded-full px-8 py-4 font-semibold transition-all duration-300 hover:scale-105 shadow-lg">
-            Start Your Journey
-          </button>
+          </div>
         </div>
       </div>
 
+      {/* Global Progress Bar at the bottom (optional but good for long sections) */}
+      {isInSection && (
+        <div className="absolute bottom-0 left-0 w-full h-1 z-20" style={{ backgroundColor: LIGHT_RED }}>
+          <div 
+            className="h-full transition-all duration-500 ease-out"
+            style={{ 
+              width: `${((activeSection + 1) / featuresData.length) * 100}%`,
+              backgroundColor: ACCENT_RED
+            }}
+          ></div>
+        </div>
+      )}
+
+      {/* Custom, professional animations */}
       <style jsx>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        @keyframes phoneFadeIn {
+            from { opacity: 0.8; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes float {
-          0%, 100% { transform: translateY(0) rotate(12deg); }
-          50% { transform: translateY(-10px) rotate(12deg); }
+        
+        @keyframes phoneSlideUp {
+          from { opacity: 0; transform: translateY(15%); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-in-up {
-          animation: fade-in-up 0.6s ease-out forwards;
+        
+        @keyframes phoneSlideDown {
+          from { opacity: 0; transform: translateY(-15%); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
+
+        .animate-phone-fade-in {
+            animation: phoneFadeIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
+        
+        .animate-phone-slide-up {
+          animation: phoneSlideUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth easing */
+        }
+        
+        .animate-phone-slide-down {
+          animation: phoneSlideDown 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        /* Utility for radial gradient background */
+        .bg-radial-gradient {
+            background-image: radial-gradient(ellipse at center, var(--tw-color-gray-50) 0%, var(--tw-color-white) 50%);
+        }
+
       `}</style>
     </section>
   );
 };
 
-export default Features;
+export default ScrollPhoneAnimation;
