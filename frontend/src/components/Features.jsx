@@ -208,10 +208,10 @@ const ScrollPhoneAnimation = () => {
           <div className="absolute top-1/2 left-1/2 w-[150%] h-[150%] bg-[radial-gradient(ellipse_at_center,_var(--tw-color-gray-50)_0%,_var(--tw-color-white)_50%)] transform -translate-x-1/2 -translate-y-1/2"></div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 w-full max-w-7xl h-full mx-auto items-center relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 w-full max-w-7xl min-h-screen mx-auto items-center relative z-10 px-4 sm:px-6 lg:px-8">
         
         {/* Left Side - Content */}
-        <div className="px-8 lg:px-16 h-full flex flex-col justify-center relative">
+        <div className="py-12 flex flex-col justify-center relative">
           <div 
             key={activeSection}
             // Transition using opacity and subtle Y-shift for smoothness
