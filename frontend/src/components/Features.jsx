@@ -200,7 +200,7 @@ const ScrollPhoneAnimation = () => {
     <section 
       ref={sectionRef}
       // Clean white background for a professional look
-      className="relative w-full h-screen bg-white overflow-hidden flex items-center justify-center font-inter"
+      className="relative w-full min-h-screen bg-white overflow-hidden flex items-center justify-center font-inter"
     >
       {/* Subtle background element (optional noise/gradient) */}
       <div className="absolute inset-0 opacity-10">
