@@ -306,9 +306,9 @@ const ScrollPhoneAnimation = () => {
         </div>
       </div>
 
-      {/* Global Progress Bar at the bottom (optional but good for long sections) */}
+      {/* Global Progress Bar at the bottom (hidden on very small screens) */}
       {isInSection && (
-        <div className="absolute bottom-0 left-0 w-full h-1 z-20" style={{ backgroundColor: LIGHT_RED }}>
+        <div className="hidden sm:block absolute bottom-0 left-0 w-full h-1 z-20" style={{ backgroundColor: LIGHT_RED }}>
           <div 
             className="h-full transition-all duration-500 ease-out"
             style={{ 
