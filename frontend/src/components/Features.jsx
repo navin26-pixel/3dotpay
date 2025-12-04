@@ -295,8 +295,8 @@ const ScrollPhoneAnimation = () => {
                   }`}
                 />
                 {/* Subtle bottom label on the screen */}
-                <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
-                    <span className="text-white text-lg font-bold">
+                <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4 sm:p-6">
+                    <span className="text-white text-base sm:text-lg font-bold">
                         {featuresData[activeSection].title}
                     </span>
                 </div>
