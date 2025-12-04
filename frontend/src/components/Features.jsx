@@ -268,8 +268,8 @@ const ScrollPhoneAnimation = () => {
         </div>
 
         {/* Right Side - Clean Phone Display */}
-        <div className="flex items-center justify-center h-full p-8">
-          <div className="relative w-72 lg:w-80 h-[600px]">
+        <div className="flex items-center justify-center py-12">
+          <div className="relative w-64 sm:w-72 lg:w-80 h-[420px] sm:h-[520px]">
             <div className="relative w-full h-full">
               {/* Phone Shell: Cleaner drop shadow, no rotation */}
               <img 
