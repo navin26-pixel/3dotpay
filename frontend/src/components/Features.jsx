@@ -219,21 +219,21 @@ const ScrollPhoneAnimation = () => {
               isScrolling ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
             }`}
           >
-            <div className="text-sm font-semibold text-gray-500 mb-4 tracking-widest uppercase">
+            <div className="text-xs sm:text-sm font-semibold text-gray-500 mb-4 tracking-widest uppercase">
               FEATURE 0{activeSection + 1} / 0{featuresData.length}
             </div>
-            <h2 className="text-4xl lg:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">
               {featuresData[activeSection].title}
             </h2>
             {/* Subtitle uses the red accent */}
-            <h3 className="text-xl lg:text-2xl font-medium" style={{ color: ACCENT_RED }}>
+            <h3 className="text-lg sm:text-xl lg:text-2xl font-medium" style={{ color: ACCENT_RED }}>
               {featuresData[activeSection].subtitle}
             </h3>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed max-w-md mt-4">
+            <p className="text-base sm:text-lg text-gray-600 mb-8 leading-relaxed max-w-md mt-4">
               {featuresData[activeSection].description}
             </p>
             <button 
-              className="group text-white border-none px-8 py-4 rounded-xl text-base font-semibold cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] flex items-center gap-3"
+              className="group text-white border-none px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-sm sm:text-base font-semibold cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] flex items-center gap-3"
               style={{ backgroundColor: ACCENT_RED, boxShadow: `0 15px 30px -10px ${ACCENT_RED}55` }}
             >
               Get Started Now
