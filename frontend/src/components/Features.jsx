@@ -244,7 +244,7 @@ const ScrollPhoneAnimation = () => {
           </div>
 
           {/* Modern Pager/Section Indicator */}
-          <div className="absolute left-8 lg:left-16 bottom-10 flex items-center gap-6">
+          <div className="relative mt-8 flex items-center gap-4 sm:gap-6">
             <div className="flex gap-2">
               {featuresData.map((_, index) => (
                 <div 
@@ -252,7 +252,7 @@ const ScrollPhoneAnimation = () => {
                   className={`h-1 rounded-full cursor-pointer transition-all duration-500 ${
                     index === activeSection 
                       // Active: wider, red accent
-                      ? 'bg-red-700 w-8' 
+                      ? 'bg-red-700 w-8 sm:w-10' 
                       // Inactive: narrow, gray
                       : 'bg-gray-300 hover:bg-gray-400 w-2'
                   }`}
@@ -261,7 +261,7 @@ const ScrollPhoneAnimation = () => {
                 />
               ))}
             </div>
-            <div className="text-sm text-gray-500 font-medium select-none">
+            <div className="text-xs sm:text-sm text-gray-500 font-medium select-none">
               {activeSection + 1} / {featuresData.length}
             </div>
           </div>
