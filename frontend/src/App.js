@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Benefits from "./components/Benefits";
 import CardsSection from "./components/CardsSection";
-import TestimonialsSection from "./components/TestimonialsSection";
+// import TestimonialsSection from "./components/TestimonialsSection";
 import Features from "./components/Features";
 import Stats from "./components/Stats";
 import FAQ from "./components/FAQ";
@@ -37,7 +37,7 @@ const Home = () => {
       <Hero />
       <Benefits />
       <CardsSection />
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
       <Features />
       <Stats />
       <FAQ />
