@@ -1,47 +1,40 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import heroBg from '../images/hero-bg-new.jpg';
-
-const ACCENT_RED = '#CF051D';
+import { Button } from './ui/button';
+import cover from '../images/hero-bg-new.jpg'; 
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen">
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <img
-          src={heroBg}
-          alt="Background"
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image with Overlay - FIXED */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src={cover} 
+          alt="Background" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/20"></div> {/* Darker overlay for better text visibility */}
       </div>
 
-      {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-12 min-h-screen flex items-center">
-        <div className="max-w-2xl">
-          {/* Headline */}
-          <h1 className="text-white text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-6">
-            Send stable.<br />
-            Receive local.
+      {/* Content - Left Aligned with Margin */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full">
+        <div className="max-w-2xl ml-0 lg:ml-16"> {/* Added margin-left */}
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight text-left">
+            Change the way of <br />transaction
           </h1>
-
-          {/* Subtext */}
-          <p className="text-white/90 text-lg lg:text-xl mb-10 leading-relaxed">
-            Transfer stablecoins anywhere. Your recipient gets local currency instantly.
+          <p className="text-xl sm:text-xl text-white/90 mb-12 max-w-xl text-left">
+            Home or abroad, crypto or cash — move freely with stablecoins. Sign up in a tap
           </p>
-
-          {/* CTA */}
-          <button
-            className="group inline-flex items-center px-8 py-4 rounded-lg text-white font-semibold hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: ACCENT_RED }}
-          >
-            Create wallet
-            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
-          </button>
+          <div className="text-left">
+            <Button 
+              size="lg" 
+              className="bg-[rgba(0, 0, 0, 1)] text-white rounded-full px-10 py-6 text-lg font-semibold shadow-xl "
+            >
+              Get Started
+            </Button>
+          </div>
         </div>
       </div>
-    </section>
+    </section> 
   );
 };
 
