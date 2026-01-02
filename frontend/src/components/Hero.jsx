@@ -19,11 +19,12 @@ const Hero = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full">
         <div className="max-w-2xl ml-0 lg:ml-16"> {/* Added margin-left */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight text-left">
-            Change the way of <br />transaction
+            Bring Crypto into 
+
+<br />Everyday Spending
           </h1>
           <p className="text-xl sm:text-xl text-white/90 mb-12 max-w-xl text-left">
-            Home or abroad, crypto or cash — move freely with stablecoins. Sign up in a tap
-          </p>
+          Seamlessly power payments around the world powered by stablecoins.          </p>
           <div className="text-left">
             <Button 
               size="lg" 

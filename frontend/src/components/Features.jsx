@@ -1,164 +1,407 @@
-import React, { useEffect, useState } from 'react';
-import { features } from '../mockData';
+import React, { useState } from 'react';
+import { 
+  QrCode, 
+  Wallet, 
+  Smartphone, 
+  Store, 
+  ArrowLeftRight, 
+  Percent,
+  ChevronRight
+} from 'lucide-react';
 
-const Features = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+// Hero Section
+const CardsHero = () => {
+  return (
+    <section className="relative bg-white text-black py-20">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 tracking-tight text-black">
+            Crypto that works in Thailand
+          </h1>
+          <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+            Spend crypto like cash at street food stalls across Thailand.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
 
-  // Phone screen images that match your features
-  const phoneScreens = [
-    'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=280&h=560&fit=crop', // Customizable Crypto Cards
-    'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=280&h=560&fit=crop', // Instant Virtual Cards
-    'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=280&h=560&fit=crop', // Multi-Device Security
-    'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=280&h=560&fit=crop', // Global Acceptance
-    'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=280&h=560&fit=crop', // Multi-Currency Support
-    'https://images.unsplash.com/photo-1556155092-490a1ba16284?w=280&h=560&fit=crop' // Low-Fee Transactions
+// Features Section
+const CardsFeatures = () => {
+  const [activeFeature, setActiveFeature] = useState(0);
+
+  const features = [
+    {
+      icon: QrCode,
+      title: 'Pay with QR Code',
+      description: 'Scan and pay anywhere in Thailand.',
+      screenType: 'qr'
+    },
+    {
+      icon: Wallet,
+      title: 'Thailand-First Crypto Wallet',
+      description: 'Store crypto and spend it locally.',
+      screenType: 'wallet'
+    },
+    {
+      icon: Smartphone,
+      title: 'Instant Local Transfers',
+      description: 'Send money using phone number or Jua ID.',
+      screenType: 'transfer'
+    },
+    {
+      icon: Store,
+      title: 'Merchant Crypto Payments',
+      description: 'Merchants receive THB. Users pay with crypto.',
+      screenType: 'merchant'
+    },
+    {
+      icon: ArrowLeftRight,
+      title: 'Multi-Currency Bridge',
+      description: 'Switch between THB and crypto with clear rates.',
+      screenType: 'bridge'
+    },
+    {
+      icon: Percent,
+      title: 'Low Fees. Clear Rates.',
+      description: 'Know the fee before you pay.',
+      screenType: 'fees'
+    }
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const section = document.getElementById('features-scroll-section');
-      
-      if (section) {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const scrollProgress = (scrollY - sectionTop) / (sectionHeight - windowHeight);
-        const newIndex = Math.min(Math.floor(scrollProgress * features.length), features.length - 1);
+  const phoneScreens = {
+    qr: (
+      <div className="w-full h-full bg-white rounded-2xl p-4 flex flex-col">
+        <div className="text-center mb-4">
+          <div className="text-sm text-gray-500">Scan to Pay</div>
+          <div className="text-lg font-bold text-black">฿ 150.00</div>
+          <div className="text-xs text-gray-500">Som Tum Stall</div>
+        </div>
+        <div className="flex-1 flex items-center justify-center">
+          <div className="w-40 h-40 bg-black flex items-center justify-center">
+            <div className="grid grid-cols-4 gap-1 w-32 h-32">
+              {Array(16).fill(0).map((_, i) => (
+                <div 
+                  key={i} 
+                  className={i % 2 === 0 ? 'bg-white rounded-sm' : 'bg-black rounded-sm'}
+                ></div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="text-center mt-4">
+          <div className="text-xs text-gray-500 mb-2">Jua Code</div>
+          <div className="text-sm text-gray-500">Valid for 5 minutes</div>
+        </div>
+      </div>
+    ),
+    wallet: (
+      <div className="w-full h-full bg-gray-50 rounded-2xl p-4">
+        <div className="text-center mb-6">
+          <div className="text-xs text-gray-500 mb-1">Total Balance</div>
+          <div className="text-2xl font-bold text-black">฿ 12,540.75</div>
+          <div className="text-sm text-gray-500">≈ $345.60 USD</div>
+        </div>
         
-        if (newIndex >= 0) {
-          setActiveIndex(newIndex);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return (
-    <section id="features-scroll-section" className="relative hidden md:block" style={{ height: `${features.length * 100}vh` }}>
-      
-      {/* Fixed Phone Container */}
-      <div className="sticky top-0 h-screen flex items-center justify-end pr-40">
-        <div className="relative flex h-[300px] w-[150px] lg:h-[600px] lg:w-[300px] items-center justify-center">
-          {/* Phone Shell */}
-          <img 
-            src="https://staticsource1.redotpay.com/web/img/home/v3/phone-shell.webp"
-            className="absolute inset-0 z-10 h-full w-full object-contain"
-            alt="3dotpay Mobile App" 
-          />
+        <div className="space-y-3">
+          <div className="flex items-center justify-between bg-white p-3 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+                <span className="text-black text-xs font-bold">฿</span>
+              </div>
+              <div>
+                <div className="font-semibold text-black">Thai Baht</div>
+                <div className="text-xs text-gray-500">Local currency</div>
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="font-bold text-black">฿ 8,250.00</div>
+              <div className="text-xs text-gray-500">+2.5%</div>
+            </div>
+          </div>
           
-          {/* Phone Screen */}
-          <div className="relative h-[280px] w-[140px] overflow-hidden rounded-[18px] lg:h-[560px] lg:w-[280px] bg-gray-100">
-            <img 
-              src={phoneScreens[activeIndex]} 
-              className="absolute h-full w-full object-cover transition-opacity duration-500"
-              alt={features[activeIndex]?.title || 'Feature'}
-            />
+          <div className="flex items-center justify-between bg-white p-3 rounded-lg border border-gray-200">
+            <div className="flex items-center">
+              <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+                <span className="text-black text-xs font-bold">J</span>
+              </div>
+              <div>
+                <div className="font-semibold text-black">Jua Token</div>
+                <div className="text-xs text-gray-500">Native token</div>
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="font-bold text-black">1,250 JUA</div>
+              <div className="text-xs text-gray-500">+5.2%</div>
+            </div>
           </div>
         </div>
       </div>
+    ),
+    transfer: (
+      <div className="w-full h-full bg-gray-50 rounded-2xl p-4">
+        <div className="flex items-center mb-6">
+          <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+            <span className="text-gray-600 font-bold">👤</span>
+          </div>
+          <div>
+            <div className="font-bold text-black">Somchai Wong</div>
+            <div className="text-xs text-gray-500">+66 98 765 4321</div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-xl p-4 mb-4 border border-gray-200">
+          <div className="text-center">
+            <div className="text-sm text-gray-500 mb-1">Sending</div>
+            <div className="text-3xl font-bold text-black">฿ 500</div>
+            <div className="text-xs text-gray-500">≈ 14.20 USDT</div>
+          </div>
+        </div>
+        
+        <div className="text-center">
+          <div className="text-xs text-gray-500 mb-2">Transfer initiated</div>
+          <div className="flex items-center justify-center">
+            <div className="w-2 h-2 bg-[#CD0210] rounded-full mr-2"></div>
+            <div className="text-sm text-[#CD0210] font-semibold">Completed in 2s</div>
+          </div>
+        </div>
+      </div>
+    ),
+    merchant: (
+      <div className="w-full h-full bg-gray-50 rounded-2xl p-4">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <div className="font-bold text-black">7-Eleven</div>
+            <div className="text-xs text-gray-500">Sukhumvit Road, Bangkok</div>
+          </div>
+          <div className="text-right">
+            <div className="text-sm text-gray-500">Receiving</div>
+            <div className="text-xl font-bold text-[#CD0210]">฿ 89.00</div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-xl p-4 mb-4 border border-gray-200">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-gray-500">Items</span>
+            <span className="font-semibold text-black">3</span>
+          </div>
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-500">Sandwich</span>
+              <span className="text-black">฿ 45.00</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-500">Water</span>
+              <span className="text-black">฿ 15.00</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-500">Chips</span>
+              <span className="text-black">฿ 29.00</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="text-xs text-gray-500 text-center">
+          Merchant receives THB instantly
+        </div>
+      </div>
+    ),
+    bridge: (
+      <div className="w-full h-full bg-gray-50 rounded-2xl p-4">
+        <div className="text-center mb-6">
+          <div className="text-sm text-gray-500 mb-2">Exchange Rate</div>
+          <div className="text-2xl font-bold text-black">1 USDT = ฿ 35.20</div>
+          <div className="text-xs text-gray-500">Live rate • Updated now</div>
+        </div>
+        
+        <div className="space-y-4">
+          <div className="bg-white p-4 rounded-xl border border-gray-200">
+            <div className="text-xs text-gray-500 mb-1">You send</div>
+            <div className="flex items-center justify-between">
+              <div className="text-xl font-bold text-black">100</div>
+              <div className="flex items-center">
+                <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-2">
+                  <span className="text-black text-xs">฿</span>
+                </div>
+                <span className="font-semibold text-black">THB</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex justify-center">
+            <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+              <ArrowLeftRight className="w-5 h-5 text-gray-500" />
+            </div>
+          </div>
+          
+          <div className="bg-white p-4 rounded-xl border border-gray-200">
+            <div className="text-xs text-gray-500 mb-1">You receive</div>
+            <div className="flex items-center justify-between">
+              <div className="text-xl font-bold text-black">2.84</div>
+              <div className="flex items-center">
+                <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-2">
+                  <span className="text-black text-xs">U</span>
+                </div>
+                <span className="font-semibold text-black">USDT</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+    fees: (
+      <div className="w-full h-full bg-gray-50 rounded-2xl p-4">
+        <div className="text-center mb-6">
+          <div className="text-sm text-gray-500 mb-2">Fee Breakdown</div>
+          <div className="text-2xl font-bold text-black">฿ 150.00</div>
+          <div className="text-xs text-gray-500">Total payment</div>
+        </div>
+        
+        <div className="bg-white rounded-xl p-4 mb-4 border border-gray-200">
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-500">Transfer amount</span>
+              <span className="font-semibold text-black">฿ 150.00</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-500">Network fee</span>
+              <span className="text-gray-500">฿ 0.15</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-500">Service fee</span>
+              <span className="text-gray-500">฿ 0.00</span>
+            </div>
+            <div className="h-px bg-gray-200 my-2"></div>
+            <div className="flex justify-between items-center">
+              <span className="font-bold text-black">You pay</span>
+              <span className="font-bold text-black">฿ 150.15</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="text-center">
+          <div className="text-xs text-gray-500">No hidden fees</div>
+        </div>
+      </div>
+    )
+  };
 
-      {/* Scrollable Text Sections */}
-      {features.map((feature, index) => (
-        <div 
-          key={index}
-          className="absolute top-0 left-0 w-full h-screen flex items-center"
-          style={{ top: `${index * 100}vh` }}
-        >
-          <div className="container max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-              
-              {/* Text Content - Left Side */}
-              <div className="max-w-2xl">
-                <div className="space-y-8">
-                  {/* Badge */}
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 rounded-full border border-red-100">
-                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                    <span className="text-red-700 font-medium text-sm">
-                      {feature.title.split(' ')[0]}
-                    </span>
+  return (
+    <section className="relative bg-white py-20">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-20">
+          
+          {/* Features List */}
+          <div className="flex-1 max-w-xl">
+            <h2 className="text-3xl font-bold mb-8 text-black">How it works</h2>
+            <div className="space-y-3">
+              {features.map((feature, index) => {
+                const Icon = feature.icon;
+                return (
+                  <div
+                    key={index}
+                    onClick={() => setActiveFeature(index)}
+                    className={`cursor-pointer transition-all duration-200 rounded-xl p-5 ${
+                      activeFeature === index 
+                        ? 'bg-red-500/5 border-l-4 border-[#CD0210]'
+                        : 'bg-gray-50 hover:bg-gray-100'
+                    }`}
+                  >
+                    <div className="flex items-start space-x-4">
+                      <div className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-200 ${
+                        activeFeature === index 
+                          ? 'bg-[#CD0210] text-white'
+                          : 'bg-gray-100 text-gray-500'
+                      }`}>
+                        <Icon className="w-6 h-6" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className={`text-lg font-semibold mb-1 ${
+                          activeFeature === index ? 'text-black' : 'text-gray-700'
+                        }`}>
+                          {feature.title}
+                        </h3>
+                        <p className={`text-sm ${
+                          activeFeature === index ? 'text-gray-700' : 'text-gray-500'
+                        }`}>
+                          {feature.description}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-
-                  {/* Title */}
-                  <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-                    {feature.title}
-                  </h2>
-
-                  {/* Description */}
-                  <p className="text-xl text-slate-600 leading-relaxed">
-                    {feature.description}
-                  </p>
-
-                  {/* Button */}
-                  <button className="bg-slate-900 text-white hover:bg-slate-800 rounded-full px-8 py-4 text-lg font-semibold transition-colors">
-                    Learn more
-                  </button>
-                </div>
-              </div>
-
-              {/* Empty Space for Phone */}
-              <div className="h-[300px] w-[150px] lg:h-[600px] lg:w-[300px] opacity-0">
-                {/* Spacing for phone */}
-              </div>
+                );
+              })}
             </div>
-          </div>
-        </div>
-      ))}
-    </section>
-  );
-};
 
-// Mobile fallback using your features data
-const MobileFeatures = () => {
-  return (
-    <section className="md:hidden py-20 bg-white">
-      <div className="container max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 rounded-full border border-red-100 mb-6">
-            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-            <span className="text-red-700 font-medium text-sm">Why Choose 3dotpay</span>
-          </div>
-          <h2 className="text-4xl font-bold text-slate-900 mb-6">
-            Built for the{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-600">
-              Future of Money
-            </span>
-          </h2>
-        </div>
-
-        <div className="space-y-8">
-          {features.map((feature, index) => (
-            <div key={index} className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">{index + 1}</span>
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900">{feature.title}</h3>
-              </div>
-              <p className="text-slate-600 leading-relaxed text-lg">
-                {feature.description}
+            {/* CTA */}
+            <div className="mt-10 p-6 rounded-2xl bg-gray-50 border border-gray-200">
+              <h3 className="text-xl font-bold mb-3 text-black">Ready to start?</h3>
+              <p className="text-gray-500 mb-6">
+                Join thousands of Thais using Jua for daily payments.
               </p>
-              <button className="bg-slate-900 text-white hover:bg-slate-800 rounded-full px-6 py-3 mt-4 text-base font-semibold transition-colors">
-                Learn more
-              </button>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button className="flex-1 bg-white text-[#CD0210] border border-[#CD0210] hover:bg-gray-100 rounded-xl px-6 py-3 font-semibold transition-all flex items-center justify-center">
+                  <span>Download App</span>
+                  <ChevronRight className="w-4 h-4 ml-2" />
+                </button>
+                <button className="flex-1 bg-transparent border border-gray-200 text-gray-700 hover:bg-gray-50 rounded-xl px-6 py-3 font-semibold transition-all">
+                  Learn more
+                </button>
+              </div>
             </div>
-          ))}
+          </div>
+
+          {/* Phone Mockup */}
+          <div className="flex-1 flex justify-center lg:justify-end lg:sticky lg:top-20">
+            <div className="relative">
+              <div className="relative w-[280px] h-[560px]">
+                <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900 rounded-[40px] p-5 shadow-2xl">
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl"></div>
+                  
+                  <div className="w-full h-full rounded-[28px] overflow-hidden bg-gray-900 relative">
+                    <div 
+                      key={activeFeature}
+                      className="w-full h-full transition-opacity duration-300"
+                    >
+                      {phoneScreens[features[activeFeature].screenType]}
+                    </div>
+                    
+                    <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/80 to-transparent">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                          <div className="w-6 h-6 bg-[#CD0210] rounded-lg mr-2"></div>
+                          <span className="text-white font-semibold">Jua</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <div className="w-2 h-2 bg-[#CD0210] rounded-full"></div>
+                          <span className="text-xs text-gray-300">฿ THB</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gray-700 rounded-full"></div>
+                </div>
+                
+                <div className="absolute -left-2 top-24 w-1 h-8 bg-gray-700 rounded-r"></div>
+                <div className="absolute -left-2 top-40 w-1 h-12 bg-gray-700 rounded-r"></div>
+                <div className="absolute -right-2 top-32 w-1 h-16 bg-gray-700 rounded-l"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
-// Main component
-const FeaturesWithScroll = () => {
+// Main Component
+export default function App() {
   return (
-    <>
-      <Features />
-      <MobileFeatures />
-    </>
+    <div className="bg-white">
+      <CardsHero />
+      <CardsFeatures />
+    </div>
   );
-};
-
-export default FeaturesWithScroll;
+}
